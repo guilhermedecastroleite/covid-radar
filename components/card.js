@@ -21,8 +21,8 @@ const Card = ({
         previousValue
         && (
           <Flex alignItems='center'>
-            <Icon as={percentage > 0 ? FaPlus : FaMinus} color={percentage > 0 ? 'green.500' : 'blue.500'} />
-            <Text ml={1} color={percentage > 0 ? 'green.500' : 'blue.500'}>{`${Math.abs(percentage.toFixed(2))}%`}</Text>
+            <Icon as={percentage >= 0 ? FaPlus : FaMinus} color={percentage > 0 ? 'green.500' : 'blue.500'} />
+            <Text ml={1} color={percentage >= 0 ? 'green.500' : 'blue.500'}>{`${Math.abs(percentage.toFixed(2))}%`}</Text>
           </Flex>
         )
       }
@@ -39,7 +39,7 @@ Card.propTypes = {
 
 Card.defaultProps = {
   title: '',
-  value: null,
+  value: 'Não há dados disponíveis',
   previousValue: null,
   color: null,
 };

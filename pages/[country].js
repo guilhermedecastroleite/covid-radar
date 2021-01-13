@@ -3,6 +3,7 @@ import {
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import Card from '../components/card';
+import LineChartComponent from '../components/lineChart';
 
 import { getCountryData, getCountryHistoricalData } from './api/country';
 
@@ -29,20 +30,27 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
   console.log('Country Data: ', countryData);
   console.log('Country Data: ', countryHistoricalData);
 
+  const period = 30;
+
   // Difference in days to compare data
   const difference = 1;
 
   // Creates an array of the cases history
   const casesArray = Object.entries(cases);
   const casesTimeline = casesArray.map((item) => ({ date: item[0], value: item[1] }));
+  const sortedCasesTimeline = casesTimeline.sort((a, b) => a.value - b.value);
 
   // Creates an array of the deaths history
   const deathsArray = Object.entries(deaths);
   const deathsTimeline = deathsArray.map((item) => ({ date: item[0], value: item[1] }));
+  const sortedDeathsTimeline = deathsTimeline.sort((a, b) => a.value - b.value);
 
   // Creates an array of the recovered history
   const recoveredArray = Object.entries(recovered);
   const recoveredTimeline = recoveredArray.map((item) => ({ date: item[0], value: item[1] }));
+  const sortedRecoveredTimeline = recoveredTimeline.sort((a, b) => a.value - b.value);
+
+  console.log(sortedCasesTimeline[0].value, sortedCasesTimeline[sortedCasesTimeline.length - 1].value);
 
   return (
     <Box p='8' bg='gray.100' height='100vh'>
@@ -96,6 +104,57 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
 
           />
         </Grid>
+
+        {/** Historical Cases Chart */}
+        <Box mt={10}>
+          <Text fontSize='xl' color='gray.700'>{`Casos nos últimos ${period} dias`}</Text>
+          <Box mt={4}>
+            <LineChartComponent
+              data={casesTimeline}
+              range={{
+                min: sortedCasesTimeline[0].value,
+                max: sortedCasesTimeline[sortedCasesTimeline.length - 1].value,
+              }}
+              tooltipProps={{
+                formatter: (value) => [`${value.toLocaleString()} casos`],
+              }}
+            />
+          </Box>
+        </Box>
+
+        {/** Historical Deaths Chart */}
+        <Box mt={10}>
+          <Text fontSize='xl' color='gray.700'>{`Mortes nos últimos ${period} dias`}</Text>
+          <Box mt={4}>
+            <LineChartComponent
+              data={deathsTimeline}
+              range={{
+                min: sortedDeathsTimeline[0].value,
+                max: sortedDeathsTimeline[sortedDeathsTimeline.length - 1].value,
+              }}
+              tooltipProps={{
+                formatter: (value) => [`${value.toLocaleString()} mortes`],
+              }}
+            />
+          </Box>
+        </Box>
+
+        {/** Historical Recovered Chart */}
+        <Box mt={10}>
+          <Text fontSize='xl' color='gray.700'>{`Recuperados nos últimos ${period} dias`}</Text>
+          <Box mt={4}>
+            <LineChartComponent
+              data={recoveredTimeline}
+              range={{
+                min: sortedRecoveredTimeline[0].value,
+                max: sortedRecoveredTimeline[sortedRecoveredTimeline.length - 1].value,
+              }}
+              tooltipProps={{
+                formatter: (value) => [`${value.toLocaleString()} recuperados`],
+              }}
+            />
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
@@ -111,9 +170,9 @@ CountryPage.propTypes = {
   }),
   countryHistoricalData: PropTypes.shape({
     timeline: PropTypes.shape({
-      cases: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      deaths: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      recovered: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      cases: PropTypes.object,
+      deaths: PropTypes.object,
+      recovered: PropTypes.object,
     }),
   }),
 };
@@ -128,9 +187,9 @@ CountryPage.defaultProps = {
   },
   countryHistoricalData: {
     timeline: {
-      cases: null,
-      deaths: null,
-      recovered: null,
+      cases: {},
+      deaths: {},
+      recovered: {},
     },
   },
 };
