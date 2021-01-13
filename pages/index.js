@@ -1,23 +1,8 @@
 import Head from 'next/head'
-import axios from 'axios';
 
 import styles from '../styles/Home.module.css'
 
-import getCountryData from './api/country'
-
-export async function getServerSideProps() {
-    const res = await getCountryData({ country: 'Brazil' });
-    const countryData = res.data;
-    return {
-      props: {
-        countryData
-      },
-    }
-}
-
-export default function Home({ countryData }) {
-  console.log('Country Data: ', countryData);
-
+export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
