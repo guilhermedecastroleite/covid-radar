@@ -1,30 +1,33 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import { Flex, Text } from '@chakra-ui/react';
+import { getAllCountries } from './api/country';
+import GlobalTable from '../containers/globalTable';
 
-import styles from '../styles/Home.module.css'
+export async function getServerSideProps() {
+  const res = await getAllCountries();
+  const allCountriesData = res.data;
+  return {
+    props: {
+      allCountriesData,
+    },
+  };
+}
 
-export default function Home() {
+const Home = ({ allCountriesData }) => {
+  console.log(allCountriesData);
   return (
-    <div className={styles.container}>
+    <Flex flexDirection='column' alignItems='center'>
       <Head>
         <title>Covid Radar</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Covid Radar
-        </h1>
-      </main>
+      <Text fontSize='xl' color='gray.700'>Visualize dados da Covid 19 ao redor do mundo.</Text>
+      <Text mt={4} fontSize='lg' color='gray.700'>Todos os dados exibidos são consultados na base da Johns Hopkins University</Text>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://github.com/guilhermedecastroleite"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Guilherme Leite
-        </a>
-      </footer>
-    </div>
-  )
-}
+      <GlobalTable data={allCountriesData} amount={10} boxProps={{ mt: 10 }} />
+    </Flex>
+  );
+};
+
+export default Home;

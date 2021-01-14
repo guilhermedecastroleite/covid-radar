@@ -5,13 +5,17 @@ export const getCountryData = async ({
   yesterday = false,
   strict = false,
 }) => (
-  axios.get(`https://corona.lmao.ninja/v2/countries/${country}?yesterday=${yesterday}&strict=${strict}&query`)
+  axios.get(`https://disease.sh/v3/covid-19/countries/${country}?yesterday=${yesterday}&strict=${strict}&query`)
 );
 
 export const getCountryHistoricalData = async ({
   country,
   lastDays = false,
 }) => (
-  axios.get(`https://corona.lmao.ninja/v2/historical/${country}?lastdays=${lastDays}
+  axios.get(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=${lastDays}
   `)
+);
+
+export const getAllCountries = async () => (
+  axios.get('https://disease.sh/v3/covid-19/countries')
 );
