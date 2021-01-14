@@ -1,13 +1,21 @@
+import PropTypes from 'prop-types';
 import { ThemeProvider, theme, CSSReset } from '@chakra-ui/react';
-import '../styles/globals.css'
+import BaseLayout from '../components/baseLayout';
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <ThemeProvider theme={theme}>
-      <CSSReset />
+import '../styles/globals.css';
+
+const MyApp = ({ Component, pageProps }) => (
+  <ThemeProvider theme={theme}>
+    <CSSReset />
+    <BaseLayout>
       <Component {...pageProps} />
-    </ThemeProvider>
-  )
-}
+    </BaseLayout>
+  </ThemeProvider>
+);
 
-export default MyApp
+MyApp.propTypes = {
+  Component: PropTypes.func.isRequired,
+  pageProps: PropTypes.object.isRequired,
+};
+
+export default MyApp;
