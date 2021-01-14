@@ -2,6 +2,31 @@ import PropTypes from 'prop-types';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
+import { Box, Text } from '@chakra-ui/react';
+
+const CustomTooltip = ({ ...props }) => {
+  const { active, payload } = props;
+
+  const tooltipExists = active && payload;
+  const date = tooltipExists ? payload[0].payload.date : null;
+  const value = tooltipExists ? payload[0].payload.value : null;
+
+  return tooltipExists
+    ? (
+      <Box
+        p={3}
+        bg='white'
+        borderRadius='md'
+        border='1px solid gray.800'
+        boxShadow='lg'
+        zIndex={1000}
+      >
+        <Text color='gray.700'>{date}</Text>
+        <Text color='gray.700'>{value.toLocaleString()}</Text>
+      </Box>
+    )
+    : null;
+};
 
 const LineChartComponent = ({
   data, width, height, range, tooltipProps, lineChartProps,
@@ -37,6 +62,7 @@ const LineChartComponent = ({
           tickLine={false}
         />
         <Tooltip
+          content={(props) => <CustomTooltip {...props} />}
           {...tooltipProps}
         />
         <Line
