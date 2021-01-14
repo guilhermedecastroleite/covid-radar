@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import { useTable, usePagination } from 'react-table';
 import {
   Table, Thead, Tbody, Tr, Th, Td,
 } from '@chakra-ui/react';
 import TablePagination from './TablePagination';
 
-const TableComponent = ({ columns, data }) => {
+const TableComponent = ({ columns, data, onRowClick }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -51,12 +52,18 @@ const TableComponent = ({ columns, data }) => {
         <Tbody {...getTableBodyProps()}>
           {page.map((row) => {
             prepareRow(row);
+            const _onRowClick = onRowClick ? () => onRowClick(row.original) : null;
             return (
-              <Tr {...row.getRowProps()}>
+              <Tr
+                onClick={_onRowClick}
+                cursor={_onRowClick ? 'pointer' : 'default'}
+                bg='white'
+                _hover={{ bg: 'gray.100' }}
+                {...row.getRowProps()}
+              >
                 {row.cells.map((cell) => (
                   <Td
                     {...cell.getCellProps()}
-                    bg='white'
                   >
                     {cell.render('Cell')}
                   </Td>
@@ -80,6 +87,18 @@ const TableComponent = ({ columns, data }) => {
       />
     </>
   );
+};
+
+TableComponent.propTypes = {
+  columns: PropTypes.array,
+  data: PropTypes.array,
+  onRowClick: PropTypes.func,
+};
+
+TableComponent.defaultProps = {
+  columns: [],
+  data: [],
+  onRowClick: () => {},
 };
 
 export default TableComponent;

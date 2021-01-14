@@ -49,7 +49,7 @@ FlagCell.defaultProps = {
   },
 };
 
-const GlobalTable = ({ data, amount, boxProps }) => {
+const GlobalTable = ({ data, onRowClick, boxProps }) => {
   const sortedData = data.sort((a, b) => b.cases - a.cases);
 
   const columns = useMemo(
@@ -90,7 +90,7 @@ const GlobalTable = ({ data, amount, boxProps }) => {
 
   return (
     <Box width='100%' {...boxProps}>
-      <TableComponent columns={columns} data={sortedData} />
+      <TableComponent columns={columns} data={sortedData} onRowClick={onRowClick} />
     </Box>
   );
 };
@@ -98,12 +98,14 @@ const GlobalTable = ({ data, amount, boxProps }) => {
 GlobalTable.propTypes = {
   data: PropTypes.array,
   amount: PropTypes.number,
+  onRowClick: PropTypes.func,
   boxProps: PropTypes.object,
 };
 
 GlobalTable.defaultProps = {
   data: [],
   amount: 10,
+  onRowClick: () => {},
   boxProps: {},
 };
 
