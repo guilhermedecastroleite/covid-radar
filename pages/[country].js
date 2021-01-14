@@ -2,6 +2,7 @@ import {
   Box, Divider, Flex, Grid, Text,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+
 import Card from '../components/card';
 import LineChartComponent from '../components/lineChart';
 
@@ -50,10 +51,8 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
   const recoveredTimeline = recoveredArray.map((item) => ({ date: item[0], value: item[1] }));
   const sortedRecoveredTimeline = recoveredTimeline.sort((a, b) => a.value - b.value);
 
-  console.log(sortedCasesTimeline[0].value, sortedCasesTimeline[sortedCasesTimeline.length - 1].value);
-
   return (
-    <Box p='8' bg='gray.100' height='100vh'>
+    <Box>
       <Box
         w='100%'
         p='8'
@@ -62,6 +61,7 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
         boxShadow='lg'
         bg='white'
       >
+        {/** Country Header */}
         <Flex
           alignItems='center'
         >
@@ -70,43 +70,48 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
             <Text fontSize='2xl' color='gray.700'>{country}</Text>
           </Box>
         </Flex>
-        <Divider orientation='horizontal' my={4} />
+
+        <Divider orientation='horizontal' borderColor='gray.700' mt={4} />
 
         {/** General */}
-        <Text fontSize='xl' color='gray.700'>Dados Gerais</Text>
-        <Text fontSize='md' color='gray.700' fontWeight='light' mt={2}>Os dados percentuais representam a diferença em relação à medição da última semana</Text>
-        <Grid templateColumns='repeat(4, 1fr)' gap={3} mt={4}>
-          <Card title='Casos' value={casesTimeline[casesTimeline.length - 1].value} previousValue={casesTimeline[casesTimeline.length - 8].value} color='gray.200' />
-          <Card title='Mortes' value={deathsTimeline[deathsTimeline.length - 1].value} previousValue={deathsTimeline[deathsTimeline.length - 8].value} color='gray.200' />
-          <Card title='Recuperados' value={recoveredTimeline[casesTimeline.length - 1].value} previousValue={recoveredTimeline[casesTimeline.length - (difference + 1)].value} color='gray.200' />
-          <Card title='Testes' value={tests.toLocaleString()} color='gray.200' />
-        </Grid>
+        <Box mt={8}>
+          <Text fontSize='xl' color='gray.700'>Dados Gerais</Text>
+          <Text fontSize='md' color='gray.700' fontWeight='light' mt={2}>Os dados percentuais representam a diferença em relação à última semana</Text>
+          <Grid templateColumns='repeat(4, 1fr)' gap={3} mt={4}>
+            <Card title='Casos' value={casesTimeline[casesTimeline.length - 1].value} previousValue={casesTimeline[casesTimeline.length - 8].value} color='gray.200' />
+            <Card title='Mortes' value={deathsTimeline[deathsTimeline.length - 1].value} previousValue={deathsTimeline[deathsTimeline.length - 8].value} color='gray.200' />
+            <Card title='Recuperados' value={recoveredTimeline[casesTimeline.length - 1].value} previousValue={recoveredTimeline[casesTimeline.length - (difference + 1)].value} color='gray.200' />
+            <Card title='Testes' value={tests.toLocaleString()} color='gray.200' />
+          </Grid>
+        </Box>
 
         {/** Daily */}
-        <Text fontSize='xl' color='gray.700' mt={8}>Dados Diários</Text>
-        <Text fontSize='md' color='gray.700' fontWeight='light' mt={2}>Os dados percentuais representam a diferença em relação à medição do dia anterior</Text>
-        <Grid templateColumns='repeat(4, 1fr)' gap={3} mt={4}>
-          <Card
-            title='Casos'
-            value={casesTimeline[casesTimeline.length - 1].value - casesTimeline[casesTimeline.length - 2].value}
-            previousValue={
-              casesTimeline[casesTimeline.length - 2].value - casesTimeline[casesTimeline.length - 3].value
-            }
-            color='gray.200'
-          />
-          <Card
-            title='Mortes'
-            value={deathsTimeline[casesTimeline.length - 1].value - deathsTimeline[casesTimeline.length - 2].value}
-            previousValue={
-              deathsTimeline[casesTimeline.length - 2].value - deathsTimeline[casesTimeline.length - 3].value
-            }
-            color='gray.200'
+        <Box mt={12}>
+          <Text fontSize='xl' color='gray.700'>Dados Diários</Text>
+          <Text fontSize='md' color='gray.700' fontWeight='light' mt={2}>Os dados percentuais representam a diferença em relação ao dia anterior</Text>
+          <Grid templateColumns='repeat(4, 1fr)' gap={3} mt={4}>
+            <Card
+              title='Casos'
+              value={casesTimeline[casesTimeline.length - 1].value - casesTimeline[casesTimeline.length - 2].value}
+              previousValue={
+                casesTimeline[casesTimeline.length - 2].value - casesTimeline[casesTimeline.length - 3].value
+              }
+              color='gray.200'
+            />
+            <Card
+              title='Mortes'
+              value={deathsTimeline[casesTimeline.length - 1].value - deathsTimeline[casesTimeline.length - 2].value}
+              previousValue={
+                deathsTimeline[casesTimeline.length - 2].value - deathsTimeline[casesTimeline.length - 3].value
+              }
+              color='gray.200'
 
-          />
-        </Grid>
+            />
+          </Grid>
+        </Box>
 
         {/** Historical Cases Chart */}
-        <Box mt={10}>
+        <Box mt={12}>
           <Text fontSize='xl' color='gray.700'>{`Casos nos últimos ${period} dias`}</Text>
           <Box mt={4}>
             <LineChartComponent
@@ -115,9 +120,7 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
                 min: sortedCasesTimeline[0].value,
                 max: sortedCasesTimeline[sortedCasesTimeline.length - 1].value,
               }}
-              tooltipProps={{
-                formatter: (value) => [`${value.toLocaleString()} casos`],
-              }}
+              tooltipText='casos'
             />
           </Box>
         </Box>
@@ -132,9 +135,6 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
                 min: sortedDeathsTimeline[0].value,
                 max: sortedDeathsTimeline[sortedDeathsTimeline.length - 1].value,
               }}
-              tooltipProps={{
-                formatter: (value) => [`${value.toLocaleString()} mortes`],
-              }}
             />
           </Box>
         </Box>
@@ -148,9 +148,6 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
               range={{
                 min: sortedRecoveredTimeline[0].value,
                 max: sortedRecoveredTimeline[sortedRecoveredTimeline.length - 1].value,
-              }}
-              tooltipProps={{
-                formatter: (value) => [`${value.toLocaleString()} recuperados`],
               }}
             />
           </Box>
