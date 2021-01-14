@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Flex, Text } from '@chakra-ui/react';
 import { getAllCountries } from './api/country';
-import GlobalTable from '../containers/globalTable';
+import GlobalTable from '../containers/Table/globalTable';
 
 export async function getServerSideProps() {
   const res = await getAllCountries();

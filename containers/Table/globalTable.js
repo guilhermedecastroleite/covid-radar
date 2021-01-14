@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
-import TableComponent from '../components/table';
+import TableComponent from '../../components/Table/Table';
 
 const BaseCell = ({ cell: { value } }) => (
   <Text color='gray.700'>{value.toLocaleString()}</Text>
@@ -50,7 +50,7 @@ FlagCell.defaultProps = {
 };
 
 const GlobalTable = ({ data, amount, boxProps }) => {
-  const sortedData = data.sort((a, b) => b.cases - a.cases).slice(0, amount);
+  const sortedData = data.sort((a, b) => b.cases - a.cases);
 
   const columns = useMemo(
     () => [
