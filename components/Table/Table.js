@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useTable, usePagination } from 'react-table';
 import {
-  Table, Thead, Tbody, Tr, Th, Td,
+  Box, Table, Thead, Tbody, Tr, Th, Td,
 } from '@chakra-ui/react';
 import TablePagination from './TablePagination';
 
@@ -30,18 +30,31 @@ const TableComponent = ({ columns, data, onRowClick }) => {
     usePagination,
   );
 
+  const setBorderRadius = ({ index, arr }) => {
+    if (index === 0) {
+      return '0.375rem 0 0 0';
+    }
+
+    if (index === arr.length - 1) {
+      return '0 0.375rem 0 0';
+    }
+
+    return 0;
+  };
+
   return (
-    <>
-      <Table {...getTableProps()} border='1px solid gray.700' boxShadow='md' borderRadius='0.375rem 0.375rem 0 0' overflow='hidden'>
+    <Box overflow='auto'>
+      <Table {...getTableProps()} border='1px solid gray.700' boxShadow='md'>
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+              {headerGroup.headers.map((column, index, arr) => (
                 <Th
                   {...column.getHeaderProps()}
                   bg='teal.400'
                   color='white'
                   p={6}
+                  borderRadius={() => setBorderRadius({ index, arr })}
                 >
                   {column.render('Header')}
                 </Th>
@@ -85,7 +98,7 @@ const TableComponent = ({ columns, data, onRowClick }) => {
         pageSize={pageSize}
         setPageSize={setPageSize}
       />
-    </>
+    </Box>
   );
 };
 

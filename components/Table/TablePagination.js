@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import {
-  Flex, Icon, Text, Input, Select,
+  Flex, Icon, Text,
 } from '@chakra-ui/react';
 import {
   FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight,
 } from 'react-icons/fi';
+import { Input, Select } from '../Inputs';
 
-const PaginationIcon = ({ icon, onClick, isDisabled }) => (
+const PaginationIcon = ({
+  icon, onClick, isDisabled, ...props
+}) => (
   <Icon
     as={icon}
     type='button'
@@ -16,6 +19,8 @@ const PaginationIcon = ({ icon, onClick, isDisabled }) => (
     h={6}
     color='gray.600'
     cursor='pointer'
+    _hover={{ color: 'teal.400' }}
+    {...props}
   />
 );
 
@@ -41,10 +46,10 @@ const TablePagination = ({
 
   return (
     <Flex alignItems='center' bg='white' py={4} px={6} borderRadius='0 0 0.375rem 0.375rem'>
-      <PaginationIcon icon={FiChevronsLeft} onClick={() => gotoPage(0)} isDisabled={!canPreviousPage} />
-      <PaginationIcon icon={FiChevronLeft} onClick={() => previousPage()} isDisabled={!canPreviousPage} />
-      <PaginationIcon icon={FiChevronRight} onClick={() => nextPage()} isDisabled={!canNextPage} />
-      <PaginationIcon icon={FiChevronsRight} onClick={() => gotoPage(pageCount - 1)} isDisabled={!canNextPage} />
+      <PaginationIcon icon={FiChevronsLeft} onClick={() => gotoPage(0)} isDisabled={!canPreviousPage} title='Primeira página' />
+      <PaginationIcon icon={FiChevronLeft} onClick={() => previousPage()} isDisabled={!canPreviousPage} title='Página anterior' />
+      <PaginationIcon icon={FiChevronRight} onClick={() => nextPage()} isDisabled={!canNextPage} title='Próxima página' />
+      <PaginationIcon icon={FiChevronsRight} onClick={() => gotoPage(pageCount - 1)} isDisabled={!canNextPage} title='Última página' />
       <Text ml={4} color='gray.700'>
         {`Página ${pageIndex + 1} de ${pageOptions.length}`}
       </Text>
@@ -53,6 +58,7 @@ const TablePagination = ({
         {' '}
         <Input
           ml={2}
+          h={7}
           type='number'
           defaultValue={pageIndex + 1}
           onChange={(e) => {
@@ -71,6 +77,7 @@ const TablePagination = ({
         <Select
           ml={4}
           w={150}
+          h={7}
           value={pageSize}
           onChange={(e) => {
             setPageSize(Number(e.target.value));

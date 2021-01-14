@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { Flex, Text } from '@chakra-ui/react';
 import { getAllCountries } from './api/country';
 import GlobalTable from '../containers/Table/globalTable';
+import { Input } from '../components/Inputs';
 
 export async function getServerSideProps() {
   const res = await getAllCountries();
@@ -30,6 +31,12 @@ const Home = ({ allCountriesData }) => {
 
       <Text fontSize='xl' color='gray.700'>Visualize dados da Covid 19 ao redor do mundo.</Text>
       <Text mt={4} fontSize='lg' color='gray.700'>Todos os dados exibidos são consultados na base da Johns Hopkins University</Text>
+
+      <Input
+        mt={8}
+        w='60%'
+        placeholder='Busque por um país...'
+      />
 
       <GlobalTable
         data={allCountriesData}
