@@ -7,7 +7,7 @@ import { AiOutlineArrowDown } from 'react-icons/ai';
 import { useCombobox } from 'downshift';
 
 const ComboBox = ({
-  options, searchValue, onChange, inputProps, boxProps,
+  options, searchValue, onChange, onEnter, inputProps, boxProps,
 }) => {
   const [items, setItems] = useState(options);
   const [value, setValue] = useState(searchValue);
@@ -35,15 +35,23 @@ const ComboBox = ({
     items,
   });
 
+  const onPressEnter = (event) => {
+    if (event.keyCode === 0 && items.length === 1) {
+      onChange(items[0]);
+    }
+  };
+
   useEffect(() => {
-    onChange(value);
-  }, [onChange, value]);
+    if (selectedItem) {
+      onChange(selectedItem);
+    }
+  }, [onChange, selectedItem]);
 
   return (
     <Box {...boxProps}>
       <Flex w='100%' justifyContent='center' {...getComboboxProps()}>
         <InputGroup>
-          <Input {...getInputProps()} {...inputProps} />
+          <Input onKeyPress={onPressEnter} {...getInputProps()} {...inputProps} />
           <InputRightElement>
             <Icon as={AiOutlineArrowDown} color='gray.500' cursor='pointer' {...getToggleButtonProps()} />
           </InputRightElement>
@@ -53,10 +61,10 @@ const ComboBox = ({
         width='100%'
         maxH='200px'
         overflowY='scroll'
-        padding={isOpen ? 2 : 0}
+        padding={(isOpen && items.length) ? 2 : 0}
         styleType='disc'
         bg='white'
-        border={isOpen ? '1px solid' : 'none'}
+        border={(isOpen && items.length) ? '1px solid' : 'none'}
         borderColor='teal.400'
         borderRadius='md'
         {...getMenuProps()}
@@ -81,6 +89,7 @@ ComboBox.propTypes = {
   options: PropTypes.array,
   searchValue: PropTypes.string,
   onChange: PropTypes.func,
+  onEnter: PropTypes.func,
   inputProps: PropTypes.object,
   boxProps: PropTypes.object,
 };
@@ -89,6 +98,7 @@ ComboBox.defaultProps = {
   options: [],
   searchValue: '',
   onChange: () => {},
+  onEnter: () => {},
   inputProps: {},
   boxProps: {},
 };

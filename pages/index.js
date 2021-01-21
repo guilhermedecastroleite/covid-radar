@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Flex, Text } from '@chakra-ui/react';
@@ -16,6 +17,7 @@ export async function getServerSideProps() {
 }
 
 const Home = ({ allCountriesData }) => {
+  const [selectedCountry, setSelectedCountry] = useState('');
   const router = useRouter();
 
   const countriesList = allCountriesData.map((item) => item.country).sort();
@@ -42,7 +44,8 @@ const Home = ({ allCountriesData }) => {
 
       <Combobox
         options={countriesList}
-        onChange={(value) => console.log(value)}
+        onPressEnter={(value) => showCountry({ country: value })}
+        onChange={(value) => showCountry({ country: value })}
         inputProps={{
           placeholder: 'Busque por um país...',
         }}
