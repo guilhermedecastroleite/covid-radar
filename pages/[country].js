@@ -3,8 +3,8 @@ import {
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
-import Card from '../components/card';
-import LineChartComponent from '../components/lineChart';
+import { Card } from '../components/Cards';
+import { LineChart } from '../components/Charts';
 
 import { getCountryData, getCountryHistoricalData } from './api/country';
 
@@ -114,7 +114,7 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
         <Box mt={12}>
           <Text fontSize='xl' color='gray.700'>{`Casos nos últimos ${period} dias`}</Text>
           <Box mt={4}>
-            <LineChartComponent
+            <LineChart
               data={casesTimeline}
               range={{
                 min: sortedCasesTimeline[0].value,
@@ -129,7 +129,7 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
         <Box mt={10}>
           <Text fontSize='xl' color='gray.700'>{`Mortes nos últimos ${period} dias`}</Text>
           <Box mt={4}>
-            <LineChartComponent
+            <LineChart
               data={deathsTimeline}
               range={{
                 min: sortedDeathsTimeline[0].value,
@@ -143,7 +143,7 @@ const CountryPage = ({ countryData, countryHistoricalData }) => {
         <Box mt={10}>
           <Text fontSize='xl' color='gray.700'>{`Recuperados nos últimos ${period} dias`}</Text>
           <Box mt={4}>
-            <LineChartComponent
+            <LineChart
               data={recoveredTimeline}
               range={{
                 min: sortedRecoveredTimeline[0].value,

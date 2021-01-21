@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Flex, Text } from '@chakra-ui/react';
 import { getAllCountries } from './api/country';
-import GlobalTable from '../containers/Table/globalTable';
+import GlobalTable from '../containers/Tables/GlobalTable';
 import Combobox from '../components/Inputs/Combobox';
 
 export async function getServerSideProps() {
@@ -36,15 +36,8 @@ const Home = ({ allCountriesData }) => {
       <Text fontSize='xl' color='gray.700'>Visualize dados da Covid 19 ao redor do mundo.</Text>
       <Text mt={4} fontSize='lg' color='gray.700'>Todos os dados exibidos são consultados na base da Johns Hopkins University</Text>
 
-      {/* <Input
-        mt={8}
-        w='60%'
-        placeholder='Busque por um país...'
-      /> */}
-
       <Combobox
         options={countriesList}
-        onPressEnter={(value) => showCountry({ country: value })}
         onChange={(value) => showCountry({ country: value })}
         inputProps={{
           placeholder: 'Busque por um país...',

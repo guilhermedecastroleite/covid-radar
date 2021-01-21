@@ -7,7 +7,7 @@ import { AiOutlineArrowDown } from 'react-icons/ai';
 import { useCombobox } from 'downshift';
 
 const ComboBox = ({
-  options, searchValue, onChange, onEnter, inputProps, boxProps,
+  options, searchValue, onChange, inputProps, boxProps,
 }) => {
   const [items, setItems] = useState(options);
   const [value, setValue] = useState(searchValue);

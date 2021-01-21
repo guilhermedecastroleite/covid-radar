@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
-import BaseLayout from '../components/baseLayout';
+import BaseLayout from '../components/Layout/BaseLayout';
 
 import chakraUiTheme from '../theme/chakraUiTheme';
 
