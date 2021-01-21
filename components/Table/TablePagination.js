@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import {
-  Flex, Icon, Text,
+  Flex, Icon, Input, Select, Text,
 } from '@chakra-ui/react';
 import {
   FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight,
 } from 'react-icons/fi';
-import { Input, Select } from '../Inputs';
 
 const PaginationIcon = ({
   icon, onClick, isDisabled, ...props

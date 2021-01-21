@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
-import { ThemeProvider, theme, CSSReset } from '@chakra-ui/react';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import BaseLayout from '../components/baseLayout';
 
+import chakraUiTheme from '../theme/chakraUiTheme';
+
 const MyApp = ({ Component, pageProps }) => (
-  <ThemeProvider theme={theme}>
+  <ChakraProvider theme={chakraUiTheme}>
     <CSSReset />
     <BaseLayout>
       <Component {...pageProps} />
     </BaseLayout>
-  </ThemeProvider>
+  </ChakraProvider>
 );
 
 MyApp.propTypes = {

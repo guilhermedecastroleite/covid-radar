@@ -1,9 +1,8 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Input, Text } from '@chakra-ui/react';
 import { getAllCountries } from './api/country';
 import GlobalTable from '../containers/Table/globalTable';
-import { Input } from '../components/Inputs';
 
 export async function getServerSideProps() {
   const res = await getAllCountries();
