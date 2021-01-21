@@ -28,6 +28,16 @@ const CustomTooltip = ({ ...props }) => {
     : null;
 };
 
+CustomTooltip.propTypes = {
+  active: PropTypes.bool,
+  payload: PropTypes.object,
+};
+
+CustomTooltip.defaultProps = {
+  active: '',
+  payload: {},
+};
+
 const LineChartComponent = ({
   data, width, height, range, tooltipProps, lineChartProps,
 }) => {
@@ -84,6 +94,7 @@ LineChartComponent.propTypes = {
     min: PropTypes.number,
     max: PropTypes.number,
   }),
+  tooltipProps: PropTypes.object,
   lineChartProps: PropTypes.object,
 };
 
@@ -95,6 +106,7 @@ LineChartComponent.defaultProps = {
     min: 0,
     max: 100,
   },
+  tooltipProps: {},
   lineChartProps: {},
 };
 
