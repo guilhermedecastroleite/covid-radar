@@ -1,5 +1,5 @@
 import {
-  Box, Flex, Icon, Text,
+  Box, Flex, Icon, Skeleton, Text,
 } from '@chakra-ui/react';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import PropTypes from 'prop-types';
@@ -12,21 +12,28 @@ const Card = ({
   const percentage = ((current - previous) / current) * 100;
 
   return (
-    <Flex bg={color} p='3' borderRadius='md' boxShadow='md' alignItems='flex-end' justifyContent='space-between' {...props}>
-      <Box>
-        <Text fontSize='lg' color='gray.600' fontWeight='light'>{title}</Text>
-        <Text fontSize='2xl' color='gray.600'>{value.toLocaleString()}</Text>
-      </Box>
-      {
-        previousValue
-        && (
-          <Flex alignItems='center'>
-            <Icon as={percentage >= 0 ? FaPlus : FaMinus} color={percentage > 0 ? 'green.500' : 'blue.500'} />
-            <Text ml={1} color={percentage >= 0 ? 'green.500' : 'blue.500'}>{`${Math.abs(percentage.toFixed(2))}%`}</Text>
-          </Flex>
-        )
-      }
-    </Flex>
+    <>
+      {!value && (
+        <Skeleton width='100%' height='88px' />
+      )}
+
+      {Boolean(value) && (
+        <Flex bg={color} p='3' borderRadius='md' boxShadow='md' alignItems='flex-end' justifyContent='space-between' {...props}>
+          <Box>
+            <Text fontSize='lg' color='gray.600' fontWeight='light'>{title}</Text>
+            {Boolean(value) && (
+              <Text fontSize='2xl' color='gray.600'>{value.toLocaleString()}</Text>
+            )}
+          </Box>
+          {Boolean(previousValue) && (
+            <Flex alignItems='center'>
+              <Icon as={percentage >= 0 ? FaPlus : FaMinus} color={percentage > 0 ? 'green.500' : 'blue.500'} />
+              <Text ml={1} color={percentage >= 0 ? 'green.500' : 'blue.500'}>{`${Math.abs(percentage.toFixed(2))}%`}</Text>
+            </Flex>
+          )}
+        </Flex>
+      )}
+    </>
   );
 };
 
@@ -39,7 +46,7 @@ Card.propTypes = {
 
 Card.defaultProps = {
   title: '',
-  value: 'Não há dados disponíveis',
+  value: null,
   previousValue: null,
   color: null,
 };

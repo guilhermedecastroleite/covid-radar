@@ -6,14 +6,15 @@ export const getCountryData = async ({
   strict = false,
 }) => (
   axios.get(`https://disease.sh/v3/covid-19/countries/${country}?yesterday=${yesterday}&strict=${strict}&query`)
+    .then(({ data }) => data)
 );
 
 export const getCountryHistoricalData = async ({
   country,
   lastDays = false,
 }) => (
-  axios.get(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=${lastDays}
-  `)
+  axios.get(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=${lastDays}`)
+    .then(({ data }) => data)
 );
 
 export const getAllCountries = async () => (

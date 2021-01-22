@@ -8,8 +8,8 @@ const CustomTooltip = ({ ...props }) => {
   const { active, payload } = props;
 
   const tooltipExists = active && payload;
-  const date = tooltipExists ? payload[0].payload.date : null;
-  const value = tooltipExists ? payload[0].payload.value : null;
+  const date = tooltipExists ? payload[0]?.payload.date : null;
+  const value = tooltipExists ? payload[0]?.payload.value : null;
 
   return tooltipExists
     ? (
@@ -22,7 +22,7 @@ const CustomTooltip = ({ ...props }) => {
         zIndex={1000}
       >
         <Text color='gray.700'>{date}</Text>
-        <Text color='gray.700'>{value.toLocaleString()}</Text>
+        <Text color='gray.700'>{(value || '').toLocaleString()}</Text>
       </Box>
     )
     : null;
@@ -30,12 +30,12 @@ const CustomTooltip = ({ ...props }) => {
 
 CustomTooltip.propTypes = {
   active: PropTypes.bool,
-  payload: PropTypes.object,
+  payload: PropTypes.array,
 };
 
 CustomTooltip.defaultProps = {
   active: '',
-  payload: {},
+  payload: [],
 };
 
 const LineChartComponent = ({
