@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
 import {
-  Box, Divider, Flex, Grid, Text,
+  Box, Divider, Flex, Grid, Icon, Skeleton, Text,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-query';
 
+import { FiArrowLeft } from 'react-icons/fi';
 import { getCountryData, getCountryHistoricalData } from './api/country';
 
 import { Card } from '../components/Cards';
@@ -82,12 +83,27 @@ const CountryPage = () => {
         bg='white'
       >
         {/** Country Header */}
-        <Flex alignItems='center'>
-          <img src={flag} alt={`${country}-flag`} style={{ width: '2rem' }} />
-          <Box ml='2'>
-            <Text fontSize='2xl' color='gray.700'>{country}</Text>
-          </Box>
-        </Flex>
+        <Skeleton isLoaded={flag}>
+          <Flex alignItems='center'>
+            <Flex
+              mr={2}
+              bg='gray.200'
+              borderRadius='50%'
+              w='32px'
+              h='32px'
+              justifyContent='center'
+              alignItems='center'
+              cursor='pointer'
+              onClick={() => router.push('/')}
+            >
+              <Icon as={FiArrowLeft} color='gray.700' />
+            </Flex>
+            <img src={flag} alt={`${country}-flag`} style={{ width: '2rem' }} />
+            <Box ml='2'>
+              <Text fontSize='2xl' color='gray.700'>{country}</Text>
+            </Box>
+          </Flex>
+        </Skeleton>
 
         <Divider orientation='horizontal' borderColor='gray.700' mt={4} />
 

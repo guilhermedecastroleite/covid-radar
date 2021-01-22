@@ -36,7 +36,7 @@ const ComboBox = ({
   });
 
   const onPressEnter = (event) => {
-    if (event.keyCode === 0 && items.length === 1) {
+    if (event.charCode === 13 && items.length === 1) {
       onChange(items[0]);
     }
   };
