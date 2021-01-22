@@ -1,26 +1,18 @@
-import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Flex, Text } from '@chakra-ui/react';
+import { useQuery } from 'react-query';
+
 import { getAllCountries } from './api/country';
-import GlobalTable from '../containers/Tables/GlobalTable';
+
 import Combobox from '../components/Inputs/Combobox';
+import GlobalTable from '../containers/Tables/GlobalTable';
 
-export async function getServerSideProps() {
-  const res = await getAllCountries();
-  const allCountriesData = res.data;
-  return {
-    props: {
-      allCountriesData,
-    },
-  };
-}
-
-const Home = ({ allCountriesData }) => {
-  const [selectedCountry, setSelectedCountry] = useState('');
+const Home = () => {
   const router = useRouter();
+  const { data } = useQuery('all-countries', getAllCountries);
 
-  const countriesList = allCountriesData.map((item) => item.country).sort();
+  const countriesList = data ? data.map((item) => item.country).sort() : [];
 
   const showCountry = ({ country }) => {
     router.push(`/${country}`);
@@ -49,7 +41,7 @@ const Home = ({ allCountriesData }) => {
       />
 
       <GlobalTable
-        data={allCountriesData}
+        data={data}
         amount={10}
         onRowClick={showCountry}
         boxProps={{ mt: 10 }}

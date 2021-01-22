@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import {
+  Box, Flex, Skeleton, Text,
+} from '@chakra-ui/react';
 
 import TableComponent from '../../components/Table/Table';
 
@@ -50,7 +52,7 @@ FlagCell.defaultProps = {
 };
 
 const GlobalTable = ({ data, onRowClick, boxProps }) => {
-  const sortedData = data.sort((a, b) => b.cases - a.cases);
+  const sortedData = data && data.sort((a, b) => b.cases - a.cases);
 
   const columns = useMemo(
     () => [
@@ -89,9 +91,19 @@ const GlobalTable = ({ data, onRowClick, boxProps }) => {
   );
 
   return (
-    <Box width='100%' {...boxProps}>
-      <TableComponent columns={columns} data={sortedData} onRowClick={onRowClick} />
-    </Box>
+    <>
+      {!data && (
+        <Flex width='100%' alignItems='center' justifyContent='center' {...boxProps}>
+          <Skeleton width='100%' height='300px' borderRadius='md' />
+        </Flex>
+      )}
+
+      {data && (
+        <Box width='100%' {...boxProps}>
+          <TableComponent columns={columns} data={sortedData} onRowClick={onRowClick} />
+        </Box>
+      )}
+    </>
   );
 };
 
@@ -103,7 +115,7 @@ GlobalTable.propTypes = {
 };
 
 GlobalTable.defaultProps = {
-  data: [],
+  data: null,
   amount: 10,
   onRowClick: () => {},
   boxProps: {},

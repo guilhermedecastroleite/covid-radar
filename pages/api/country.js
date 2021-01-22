@@ -18,4 +18,5 @@ export const getCountryHistoricalData = async ({
 
 export const getAllCountries = async () => (
   axios.get('https://disease.sh/v3/covid-19/countries')
+    .then(({ data }) => data)
 );
