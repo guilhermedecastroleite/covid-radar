@@ -39,7 +39,7 @@ const chakraUiTheme = extendTheme({
     Input: {
       baseStyle: {
         field: {
-          color: 'gray.700',
+          color: 'gray.600',
         },
       },
       variants: {
@@ -65,7 +65,7 @@ const chakraUiTheme = extendTheme({
     Select: {
       baseStyle: {
         field: {
-          color: 'gray.700',
+          color: 'gray.600',
         },
       },
       variants: {

@@ -44,7 +44,7 @@ const TableComponent = ({ columns, data, onRowClick }) => {
 
   return (
     <Box overflow='auto'>
-      <Table {...getTableProps()} border='1px solid gray.700' boxShadow='md'>
+      <Table {...getTableProps()} border='1px solid gray.600' boxShadow='md'>
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>

@@ -4,6 +4,18 @@ import {
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
+const chooseColor = (value) => {
+  if (value > 0) {
+    return 'green.500';
+  }
+
+  if (value < 0) {
+    return 'blue.500';
+  }
+
+  return 'gray.600';
+};
+
 const Card = ({
   title, value, previousValue, color, ...props
 }) => {
@@ -27,8 +39,10 @@ const Card = ({
           </Box>
           {Boolean(previousValue) && (
             <Flex alignItems='center'>
-              <Icon as={percentage >= 0 ? FaPlus : FaMinus} color={percentage > 0 ? 'green.500' : 'blue.500'} />
-              <Text ml={1} color={percentage >= 0 ? 'green.500' : 'blue.500'}>{`${Math.abs(percentage.toFixed(2))}%`}</Text>
+              {percentage !== 0 && (
+                <Icon as={percentage >= 0 ? FaPlus : FaMinus} color={percentage > 0 ? 'green.500' : 'blue.500'} />
+              )}
+              <Text ml={1} color={chooseColor(percentage)}>{`${Math.abs(percentage.toFixed(2))}%`}</Text>
             </Flex>
           )}
         </Flex>

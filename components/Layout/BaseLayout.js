@@ -13,7 +13,7 @@ const BaseLayout = ({ children }) => {
       bg='gray.100'
       minHeight='100vh'
     >
-      <Text mt={4} fontSize='6xl' color='gray.700' onClick={() => router.push('/')} cursor='pointer'>
+      <Text mt={4} fontSize='6xl' color='gray.600' onClick={() => router.push('/')} cursor='pointer'>
         Covid Radar
       </Text>
       <Box pt={8} pb={24} px={16} width='100%'>

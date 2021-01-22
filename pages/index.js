@@ -25,8 +25,8 @@ const Home = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Text fontSize='xl' color='gray.700'>Visualize dados da Covid 19 ao redor do mundo.</Text>
-      <Text mt={4} fontSize='lg' color='gray.700'>Todos os dados exibidos são consultados na base da Johns Hopkins University</Text>
+      <Text fontSize='xl' color='gray.600'>Visualize dados da Covid 19 ao redor do mundo.</Text>
+      <Text mt={4} fontSize='lg' color='gray.600'>Todos os dados exibidos são consultados na base da Johns Hopkins University</Text>
 
       <Combobox
         options={countriesList}

@@ -21,8 +21,8 @@ const CustomTooltip = ({ ...props }) => {
         boxShadow='lg'
         zIndex={1000}
       >
-        <Text color='gray.700'>{date}</Text>
-        <Text color='gray.700'>{(value || '').toLocaleString()}</Text>
+        <Text color='gray.600'>{date}</Text>
+        <Text color='gray.600'>{(value || '').toLocaleString()}</Text>
       </Box>
     )
     : null;

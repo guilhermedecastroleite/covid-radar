@@ -13,8 +13,8 @@ import { LineChart } from '../components/Charts';
 
 const CardsGrid = ({ title, subtitle, children }) => (
   <Box mt={8}>
-    <Text fontSize='xl' color='gray.700'>{title}</Text>
-    <Text fontSize='md' color='gray.700' fontWeight='light' mt={2}>{subtitle}</Text>
+    <Text fontSize='xl' color='gray.600'>{title}</Text>
+    <Text fontSize='md' color='gray.600' fontWeight='light' mt={2}>{subtitle}</Text>
     <Grid
       templateColumns={{
         base: 'repeat(1, 1fr)',
@@ -96,16 +96,16 @@ const CountryPage = () => {
               cursor='pointer'
               onClick={() => router.push('/')}
             >
-              <Icon as={FiArrowLeft} color='gray.700' />
+              <Icon as={FiArrowLeft} color='gray.600' />
             </Flex>
             <img src={flag} alt={`${country}-flag`} style={{ width: '2rem' }} />
             <Box ml='2'>
-              <Text fontSize='2xl' color='gray.700'>{country}</Text>
+              <Text fontSize='2xl' color='gray.600'>{country}</Text>
             </Box>
           </Flex>
         </Skeleton>
 
-        <Divider orientation='horizontal' borderColor='gray.700' mt={4} />
+        <Divider orientation='horizontal' borderColor='gray.600' mt={4} />
 
         {/** General */}
         <CardsGrid
@@ -160,7 +160,7 @@ const CountryPage = () => {
 
         {/** Historical Cases Chart */}
         <Box mt={12}>
-          <Text fontSize='xl' color='gray.700'>{`Casos nos últimos ${period} dias`}</Text>
+          <Text fontSize='xl' color='gray.600'>{`Casos nos últimos ${period} dias`}</Text>
           <Box mt={4}>
             <LineChart
               data={casesTimeline}
@@ -175,7 +175,7 @@ const CountryPage = () => {
 
         {/** Historical Deaths Chart */}
         <Box mt={10}>
-          <Text fontSize='xl' color='gray.700'>{`Mortes nos últimos ${period} dias`}</Text>
+          <Text fontSize='xl' color='gray.600'>{`Mortes nos últimos ${period} dias`}</Text>
           <Box mt={4}>
             <LineChart
               data={deathsTimeline}
@@ -189,7 +189,7 @@ const CountryPage = () => {
 
         {/** Historical Recovered Chart */}
         <Box mt={10}>
-          <Text fontSize='xl' color='gray.700'>{`Recuperados nos últimos ${period} dias`}</Text>
+          <Text fontSize='xl' color='gray.600'>{`Recuperados nos últimos ${period} dias`}</Text>
           <Box mt={4}>
             <LineChart
               data={recoveredTimeline}

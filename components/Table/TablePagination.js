@@ -49,10 +49,10 @@ const TablePagination = ({
       <PaginationIcon icon={FiChevronLeft} onClick={() => previousPage()} isDisabled={!canPreviousPage} title='Página anterior' />
       <PaginationIcon icon={FiChevronRight} onClick={() => nextPage()} isDisabled={!canNextPage} title='Próxima página' />
       <PaginationIcon icon={FiChevronsRight} onClick={() => gotoPage(pageCount - 1)} isDisabled={!canNextPage} title='Última página' />
-      <Text ml={4} color='gray.700'>
+      <Text ml={4} color='gray.600'>
         {`Página ${pageIndex + 1} de ${pageOptions.length}`}
       </Text>
-      <Text ml={4} color='gray.700'>
+      <Text ml={4} color='gray.600'>
         Vá para:
         {' '}
         <Input
@@ -69,7 +69,7 @@ const TablePagination = ({
       </Text>
       {' '}
       <Flex ml={4} alignItems='center'>
-        <Text color='gray.700'>
+        <Text color='gray.600'>
           Itens por página:
         </Text>
         {' '}

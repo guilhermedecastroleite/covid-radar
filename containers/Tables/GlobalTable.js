@@ -7,7 +7,7 @@ import {
 import TableComponent from '../../components/Table/Table';
 
 const BaseCell = ({ cell: { value } }) => (
-  <Text color='gray.700'>{value.toLocaleString()}</Text>
+  <Text color='gray.600'>{value.toLocaleString()}</Text>
 );
 
 BaseCell.propTypes = {
