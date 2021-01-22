@@ -12,6 +12,7 @@
     "@chakra-ui/theme-tools": "^1.0.3",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
+    "@svgr/webpack": "^5.5.0",
     "axios": "^0.21.1",
     "downshift": "^6.1.0",
     "framer-motion": "^3.2.1",

@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import {
+  Box, Flex, Icon, Text,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+
+import RadarIcon from '../../public/radar.svg';
+// import VercelIcon from '../../public/vercel.svg';
 
 const BaseLayout = ({ children }) => {
   const router = useRouter();
@@ -13,9 +18,20 @@ const BaseLayout = ({ children }) => {
       bg='gray.100'
       minHeight='100vh'
     >
-      <Text mt={4} fontSize='6xl' color='gray.600' onClick={() => router.push('/')} cursor='pointer'>
-        Covid Radar
-      </Text>
+      <Flex mt={4} flexDirection='column' alignItems='center'>
+        <Icon
+          as={RadarIcon}
+          alt='Radar by Theo K. from the Noun Project'
+          title='Radar by Theo K. from the Noun Project'
+          w='130px'
+          h='130px'
+          color='gray.600'
+          fill='teal.400'
+        />
+        <Text mt={-4} fontSize='6xl' color='teal.400' onClick={() => router.push('/')} cursor='pointer'>
+          Covid Radar
+        </Text>
+      </Flex>
       <Box pt={8} pb={24} px={16} width='100%'>
         {children}
       </Box>
