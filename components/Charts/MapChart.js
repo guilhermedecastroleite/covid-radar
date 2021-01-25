@@ -19,8 +19,6 @@ const MapChart = ({
   const sortedCountries = countryData.sort((a, b) => b[marker] - a[marker]);
   const max = (sortedCountries[0] || {})[marker];
 
-  console.log(minColor, maxColor);
-
   const colorScale = scaleLinear()
     .domain([0, max / 4])
     .range([minColor, maxColor]);
