@@ -18,7 +18,7 @@ const BaseLayout = ({ children }) => {
       bg='gray.100'
       minHeight='100vh'
     >
-      <Flex mt={4} flexDirection='column' alignItems='center'>
+      <Flex mt={4} flexDirection='column' alignItems='center' onClick={() => router.push('/')} cursor='pointer'>
         <Icon
           as={RadarIcon}
           alt='Radar by Theo K. from the Noun Project'
@@ -28,7 +28,7 @@ const BaseLayout = ({ children }) => {
           color='gray.600'
           fill='teal.400'
         />
-        <Text mt={-4} fontSize='6xl' color='teal.400' onClick={() => router.push('/')} cursor='pointer'>
+        <Text mt={-4} fontSize='6xl' fontWeight='bold' color='teal.400'>
           Covid Radar
         </Text>
       </Flex>
