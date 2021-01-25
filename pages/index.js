@@ -14,13 +14,13 @@ import Switch from '../components/Switch';
 
 const options = [
   {
-    name: 'Casos', value: 'cases', minColor: '#FED7D7', maxColor: '#E53E3E',
+    name: 'Casos', value: 'cases', minColor: '#E9D8FD', maxColor: '#805AD5',
   },
   {
     name: 'Mortes', value: 'deaths', minColor: '#FED7D7', maxColor: '#E53E3E',
   },
   {
-    name: 'Recuperados', value: 'recovered', minColor: '#FED7D7', maxColor: '#E53E3E',
+    name: 'Recuperados', value: 'recovered', minColor: '#9AE6B4', maxColor: '#38A169',
   },
 ];
 
@@ -74,6 +74,8 @@ const Home = () => {
               [marker]: item[marker],
             }
           ))}
+          minColor={options.find((item) => item.value === marker).minColor}
+          maxColor={options.find((item) => item.value === marker).maxColor}
         />
       </Box>
 

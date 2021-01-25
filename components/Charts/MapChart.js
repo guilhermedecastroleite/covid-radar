@@ -13,13 +13,17 @@ import { Skeleton } from '@chakra-ui/react';
 
 const geoUrl = 'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json';
 
-const MapChart = ({ countryData, marker, setTooltipContent }) => {
+const MapChart = ({
+  countryData, marker, minColor, maxColor, setTooltipContent,
+}) => {
   const sortedCountries = countryData.sort((a, b) => b[marker] - a[marker]);
   const max = (sortedCountries[0] || {})[marker];
 
+  console.log(minColor, maxColor);
+
   const colorScale = scaleLinear()
     .domain([0, max / 4])
-    .range(['#FED7D7', '#E53E3E']);
+    .range([minColor, maxColor]);
 
   return (
     <>
@@ -48,9 +52,9 @@ const MapChart = ({ countryData, marker, setTooltipContent }) => {
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
-                      fill={d ? colorScale(d[marker]) : '#FED7D7'}
+                      fill={d ? colorScale(d[marker]) : minColor}
                       stroke='#EDF2F7'
-                      onMouseEnter={() => setTooltipContent(d ? `${d.name} - ${d[marker]}` : '')}
+                      onMouseEnter={() => setTooltipContent(d ? `${d.name} - ${d[marker].toLocaleString()}` : '')}
                       onMouseLeave={() => setTooltipContent('')}
                     />
                   );
@@ -67,6 +71,8 @@ const MapChart = ({ countryData, marker, setTooltipContent }) => {
 MapChart.propTypes = {
   countryData: PropTypes.array.isRequired,
   marker: PropTypes.string.isRequired,
+  minColor: PropTypes.string.isRequired,
+  maxColor: PropTypes.string.isRequired,
   setTooltipContent: PropTypes.func.isRequired,
 };
 
