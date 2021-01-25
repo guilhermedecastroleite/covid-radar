@@ -34,7 +34,6 @@ const Home = () => {
   const countriesList = data ? data.map((item) => item.country).sort() : [];
 
   const showCountry = ({ country }) => {
-    console.log(country);
     router.push(`/${country}`);
   };
 
