@@ -20,7 +20,7 @@ const MapChart = ({
   const max = (sortedCountries[0] || {})[marker];
 
   const colorScale = scaleLinear()
-    .domain([0, max / 4])
+    .domain([0, max / 2.5])
     .range([minColor, maxColor]);
 
   return (
