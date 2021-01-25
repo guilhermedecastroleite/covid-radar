@@ -1,16 +1,35 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
+import ReactTooltip from 'react-tooltip';
 
+import { useState } from 'react';
 import { getAllCountries } from './api/country';
 
 import Combobox from '../components/Inputs/Combobox';
 import GlobalTable from '../containers/Tables/GlobalTable';
+import MapChart from '../components/Charts/MapChart';
+import Switch from '../components/Switch';
+
+const options = [
+  {
+    name: 'Casos', value: 'cases', minColor: '#FED7D7', maxColor: '#E53E3E',
+  },
+  {
+    name: 'Mortes', value: 'deaths', minColor: '#FED7D7', maxColor: '#E53E3E',
+  },
+  {
+    name: 'Recuperados', value: 'recovered', minColor: '#FED7D7', maxColor: '#E53E3E',
+  },
+];
 
 const Home = () => {
   const router = useRouter();
   const { data } = useQuery('all-countries', getAllCountries);
+
+  const [marker, setMarker] = useState('cases');
+  const [tooltipContent, setTooltipContent] = useState('');
 
   const countriesList = data ? data.map((item) => item.country).sort() : [];
 
@@ -38,6 +57,31 @@ const Home = () => {
           mt: 8,
           w: '60%',
         }}
+      />
+
+      <ReactTooltip backgroundColor='#2D3748'>
+        {tooltipContent}
+      </ReactTooltip>
+
+      <Box mt={10} w='100%'>
+        <MapChart
+          marker={marker}
+          setTooltipContent={setTooltipContent}
+          countryData={(data || []).map((item) => (
+            {
+              name: item.country,
+              ISO3: item.countryInfo.iso3,
+              [marker]: item[marker],
+            }
+          ))}
+        />
+      </Box>
+
+      <Switch
+        options={options}
+        value={marker}
+        onClick={(value) => setMarker(value)}
+        boxProps={{ mt: 5 }}
       />
 
       <GlobalTable
