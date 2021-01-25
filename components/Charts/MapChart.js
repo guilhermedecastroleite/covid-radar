@@ -14,7 +14,7 @@ import { Skeleton } from '@chakra-ui/react';
 const geoUrl = 'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json';
 
 const MapChart = ({
-  countryData, marker, minColor, maxColor, setTooltipContent,
+  countryData, marker, minColor, maxColor, setTooltipContent, onClickCountry,
 }) => {
   const sortedCountries = countryData.sort((a, b) => b[marker] - a[marker]);
   const max = (sortedCountries[0] || {})[marker];
@@ -54,6 +54,8 @@ const MapChart = ({
                       stroke='#EDF2F7'
                       onMouseEnter={() => setTooltipContent(d ? `${d.name} - ${d[marker].toLocaleString()}` : '')}
                       onMouseLeave={() => setTooltipContent('')}
+                      onClick={() => onClickCountry(d)}
+                      cursor='pointer'
                     />
                   );
                 })}

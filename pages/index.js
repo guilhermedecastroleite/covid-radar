@@ -34,6 +34,7 @@ const Home = () => {
   const countriesList = data ? data.map((item) => item.country).sort() : [];
 
   const showCountry = ({ country }) => {
+    console.log(country);
     router.push(`/${country}`);
   };
 
@@ -74,6 +75,7 @@ const Home = () => {
               [marker]: item[marker],
             }
           ))}
+          onClickCountry={(country) => showCountry({ country: country.name })}
           minColor={options.find((item) => item.value === marker).minColor}
           maxColor={options.find((item) => item.value === marker).maxColor}
         />
