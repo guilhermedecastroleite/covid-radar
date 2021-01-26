@@ -38,6 +38,7 @@ const MapChart = ({
           }}
           width={800}
           height={400}
+          cursor='move'
         >
           <ZoomableGroup>
             <Sphere stroke='#CBD5E0' strokeWidth={0.5} />
@@ -74,6 +75,7 @@ MapChart.propTypes = {
   minColor: PropTypes.string.isRequired,
   maxColor: PropTypes.string.isRequired,
   setTooltipContent: PropTypes.func.isRequired,
+  onClickCountry: PropTypes.func.isRequired,
 };
 
 export default memo(MapChart);
