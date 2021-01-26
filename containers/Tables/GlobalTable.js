@@ -24,7 +24,7 @@ const FlagCell = ({ row: { original } }) => {
   const { countryInfo: { flag }, country } = original;
   return (
     <Flex justifyContent='center'>
-      <img src={flag} style={{ width: '2rem' }} alt={`${country}-flag`} />
+      <img src={flag} style={{ minWidth: '32px', maxWidth: '32px' }} alt={`${country}-flag`} />
     </Flex>
   );
 };

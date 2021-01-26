@@ -44,7 +44,7 @@ const TablePagination = ({
   const pageSizeOptions = [10, 20, 30, 40, 50, 100];
 
   return (
-    <Flex alignItems='center' bg='white' py={4} px={6} borderRadius='0 0 0.375rem 0.375rem'>
+    <Flex alignItems='center' bg='white' py={4} px={6}>
       <PaginationIcon icon={FiChevronsLeft} onClick={() => gotoPage(0)} isDisabled={!canPreviousPage} title='Primeira página' />
       <PaginationIcon icon={FiChevronLeft} onClick={() => previousPage()} isDisabled={!canPreviousPage} title='Página anterior' />
       <PaginationIcon icon={FiChevronRight} onClick={() => nextPage()} isDisabled={!canNextPage} title='Próxima página' />

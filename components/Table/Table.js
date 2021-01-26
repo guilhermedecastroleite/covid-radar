@@ -30,31 +30,18 @@ const TableComponent = ({ columns, data, onRowClick }) => {
     usePagination,
   );
 
-  const setBorderRadius = ({ index, arr }) => {
-    if (index === 0) {
-      return '0.375rem 0 0 0';
-    }
-
-    if (index === arr.length - 1) {
-      return '0 0.375rem 0 0';
-    }
-
-    return 0;
-  };
-
   return (
-    <Box overflow='auto'>
-      <Table {...getTableProps()} border='1px solid gray.600' boxShadow='md'>
+    <Box w='100%' overflow='auto' border='1px solid gray.600' boxShadow='md' bg='white' borderRadius='md'>
+      <Table {...getTableProps()}>
         <Thead>
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, index, arr) => (
+              {headerGroup.headers.map((column) => (
                 <Th
                   {...column.getHeaderProps()}
                   bg='teal.400'
                   color='white'
                   p={6}
-                  borderRadius={() => setBorderRadius({ index, arr })}
                 >
                   {column.render('Header')}
                 </Th>
