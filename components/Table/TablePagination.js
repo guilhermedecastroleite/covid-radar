@@ -49,14 +49,20 @@ const TablePagination = ({
       <PaginationIcon icon={FiChevronLeft} onClick={() => previousPage()} isDisabled={!canPreviousPage} title='Página anterior' />
       <PaginationIcon icon={FiChevronRight} onClick={() => nextPage()} isDisabled={!canNextPage} title='Próxima página' />
       <PaginationIcon icon={FiChevronsRight} onClick={() => gotoPage(pageCount - 1)} isDisabled={!canNextPage} title='Última página' />
-      <Text ml={4} color='gray.600'>
-        {`Página ${pageIndex + 1} de ${pageOptions.length}`}
-      </Text>
-      <Text ml={4} color='gray.600'>
-        Vá para:
-        {' '}
+      <Flex ml={4} flexDirection={['column', 'column', 'column', 'row']}>
+        <Text color='gray.600'>
+          Página
+        </Text>
+        <Text ml={[0, 0, 0, 4]} color='gray.600' whiteSpace='nowrap'>
+          {`${pageIndex + 1} de ${pageOptions.length}`}
+        </Text>
+      </Flex>
+      <Flex ml={4} flexDirection={['column', 'column', 'row']}>
+        <Text color='gray.600' whiteSpace='nowrap'>
+          Vá para:
+        </Text>
         <Input
-          ml={2}
+          ml={[0, 0, 2]}
           h={7}
           type='number'
           defaultValue={pageIndex + 1}
@@ -66,15 +72,13 @@ const TablePagination = ({
           }}
           style={{ width: '100px' }}
         />
-      </Text>
-      {' '}
-      <Flex ml={4} alignItems='center'>
-        <Text color='gray.600'>
+      </Flex>
+      <Flex ml={4} alignItems={['flex-start', 'flex-start', 'center']} flexDirection={['column', 'column', 'row']}>
+        <Text color='gray.600' whiteSpace='nowrap'>
           Itens por página:
         </Text>
-        {' '}
         <Select
-          ml={4}
+          ml={[0, 0, 4]}
           w={150}
           h={7}
           value={pageSize}
