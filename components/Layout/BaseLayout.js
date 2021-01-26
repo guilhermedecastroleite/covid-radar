@@ -25,12 +25,11 @@ const BaseLayout = ({ children }) => {
           as={RadarIcon}
           alt='Radar by Theo K. from the Noun Project'
           title='Radar by Theo K. from the Noun Project'
-          w='130px'
-          h='130px'
           color='gray.600'
           fill='teal.400'
+          fontSize='130px'
         />
-        <Text mt={-4} fontSize='6xl' fontWeight='bold' color='teal.400'>
+        <Text mt={[-2, -2, -4]} fontSize={['5xl', '5xl', '6xl']} fontWeight='bold' color='teal.400'>
           Covid Radar
         </Text>
       </Flex>
