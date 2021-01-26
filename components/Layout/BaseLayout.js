@@ -3,9 +3,10 @@ import {
   Box, Flex, Icon, Text,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { FaGithub } from 'react-icons/fa';
+import { SiGitlab } from 'react-icons/si';
 
 import RadarIcon from '../../public/radar.svg';
-// import VercelIcon from '../../public/vercel.svg';
 
 const BaseLayout = ({ children }) => {
   const router = useRouter();
@@ -18,7 +19,8 @@ const BaseLayout = ({ children }) => {
       bg='gray.100'
       minHeight='100vh'
     >
-      <Flex mt={4} flexDirection='column' alignItems='center' onClick={() => router.push('/')} cursor='pointer'>
+      {/** App logo */}
+      <Flex mt={10} flexDirection='column' alignItems='center' onClick={() => router.push('/')} cursor='pointer'>
         <Icon
           as={RadarIcon}
           alt='Radar by Theo K. from the Noun Project'
@@ -32,17 +34,33 @@ const BaseLayout = ({ children }) => {
           Covid Radar
         </Text>
       </Flex>
-      <Box pt={8} pb={24} px={16} width='100%'>
+
+      {/** All content of the app is rendered here */}
+      <Box pt={8} pb={32} px={['16px', '24px', 16, 24, 32, 64]} width='100%'>
         {children}
       </Box>
+
       <footer style={{ position: 'absolute', bottom: 32 }}>
-        <a
-          href='https://github.com/guilhermedecastroleite'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          @2021 - Guilherme Leite
-        </a>
+        <Flex flexDirection='column' alignItems='center'>
+          <Flex mb={2} justifyContent='center' alignItems='center'>
+            <a
+              href='https://github.com/guilhermedecastroleite'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <Icon as={FaGithub} fontSize='20px' />
+            </a>
+            <a
+              href='https://gitlab.com/guileite'
+              target='_blank'
+              rel='noopener noreferrer'
+              style={{ marginLeft: '24px' }}
+            >
+              <Icon as={SiGitlab} fontSize='20px' />
+            </a>
+          </Flex>
+          2021 - Guilherme Leite
+        </Flex>
       </footer>
     </Flex>
   );
