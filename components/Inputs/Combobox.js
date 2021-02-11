@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box, Flex, Icon, Input, InputGroup, InputRightElement, List, ListItem,
@@ -50,7 +50,7 @@ const ComboBox = ({
   return (
     <Box {...boxProps}>
       <Flex w='100%' justifyContent='center' {...getComboboxProps()}>
-        <InputGroup>
+        <InputGroup id='combobox'>
           <Input onKeyPress={onPressEnter} {...getInputProps()} {...inputProps} />
           <InputRightElement>
             <Icon as={AiOutlineArrowDown} color='gray.500' cursor='pointer' {...getToggleButtonProps()} />

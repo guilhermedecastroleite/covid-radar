@@ -1,16 +1,17 @@
+import { useState, useCallback, useMemo } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 import ReactTooltip from 'react-tooltip';
 
-import { useState } from 'react';
 import { getAllCountries } from './api/country';
 
 import Combobox from '../components/Inputs/Combobox';
 import GlobalTable from '../containers/Tables/GlobalTable';
 import MapChart from '../components/Charts/MapChart';
 import Switch from '../components/Switch';
+import getCountriesVaccineData from './api/vaccine';
 
 const options = [
   {
@@ -20,18 +21,41 @@ const options = [
     name: 'Mortes', value: 'deaths', minColor: '#FED7D7', maxColor: '#E53E3E',
   },
   {
-    name: 'Recuperados', value: 'recovered', minColor: '#9AE6B4', maxColor: '#38A169',
+    name: 'Vacinados', value: 'vaccinated', minColor: '#9AE6B4', maxColor: '#38A169',
   },
 ];
 
 const Home = () => {
   const router = useRouter();
   const { data } = useQuery('all-countries', getAllCountries);
+  const { data: vaccineData } = useQuery('vaccine-countries', () => getCountriesVaccineData({ days: 1 }));
 
   const [marker, setMarker] = useState('cases');
   const [tooltipContent, setTooltipContent] = useState('');
 
-  const countriesList = data ? data.map((item) => item.country).sort() : [];
+  const updateTooltip = useCallback((newTooltip) => {
+    setTooltipContent(newTooltip);
+  }, []);
+
+  const countriesList = useMemo(() => {
+    if (data) {
+      return data.map((item) => item.country).sort();
+    }
+    return [];
+  }, [data]);
+
+  const countryData = useMemo(() => {
+    if (data) {
+      return data.map((item) => ({
+        ...item,
+        vaccinated: Object.values(
+          (vaccineData || []).find((country) => country.country === item.country)?.timeline
+          || {},
+        )[0],
+      }));
+    }
+    return [];
+  }, [data, vaccineData]);
 
   const showCountry = ({ country }) => {
     router.push(`/${country}`);
@@ -66,12 +90,14 @@ const Home = () => {
       <Box mt={10} w='100%'>
         <MapChart
           marker={marker}
-          setTooltipContent={setTooltipContent}
-          countryData={(data || []).map((item) => (
+          setTooltipContent={updateTooltip}
+          countryData={(countryData || []).map((item) => (
             {
               name: item.country,
               ISO3: item.countryInfo.iso3,
-              [marker]: item[marker],
+              cases: item.cases,
+              deaths: item.deaths,
+              vaccinated: item.vaccinated,
             }
           ))}
           onClickCountry={(country) => showCountry({ country: country.name })}
@@ -88,7 +114,7 @@ const Home = () => {
       />
 
       <GlobalTable
-        data={data}
+        data={countryData}
         amount={10}
         onRowClick={showCountry}
         boxProps={{ mt: 10 }}

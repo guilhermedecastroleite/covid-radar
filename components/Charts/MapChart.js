@@ -53,7 +53,8 @@ const MapChart = ({
                       geography={geo}
                       fill={d ? colorScale(d[marker]) : minColor}
                       stroke='#EDF2F7'
-                      onMouseEnter={() => setTooltipContent(d ? `${d.name} - ${d[marker].toLocaleString()}` : '')}
+                      strokeWidth='0.25px'
+                      onMouseEnter={() => setTooltipContent(d ? `${d.name} - ${(d[marker] || 'Dado indisponível').toLocaleString()}` : 'Dado indisponível')}
                       onMouseLeave={() => setTooltipContent('')}
                       onClick={() => onClickCountry(d)}
                       cursor='pointer'

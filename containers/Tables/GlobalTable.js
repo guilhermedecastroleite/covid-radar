@@ -7,7 +7,7 @@ import {
 import TableComponent from '../../components/Table/Table';
 
 const BaseCell = ({ cell: { value } }) => (
-  <Text color='gray.600'>{value.toLocaleString()}</Text>
+  <Text color='gray.600'>{(value || '--').toLocaleString()}</Text>
 );
 
 BaseCell.propTypes = {
@@ -77,8 +77,8 @@ const GlobalTable = ({ data, onRowClick, boxProps }) => {
         Cell: BaseCell,
       },
       {
-        Header: 'Recuperados',
-        accessor: 'recovered',
+        Header: 'Vacinados',
+        accessor: 'vaccinated',
         Cell: BaseCell,
       },
       {
